@@ -1,1 +1,2 @@
-# C-plus-plus
+# daily c++ code writing
+
