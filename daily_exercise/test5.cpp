@@ -12,8 +12,7 @@ public:
         if (i == n) {
             rec.push_back(perm);
             return;
-        }
-        for (int j = 0; j < n; j++) {
+        }        for (int j = 0; j < n; j++) {
             if (vis[j] || (j > 0 && !vis[j - 1] && s[j - 1] == s[j])) {
                 continue;
             }
