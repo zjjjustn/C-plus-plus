@@ -37,6 +37,21 @@ public:
         }
     }
 
+    MyString(MyString &&other)
+    {
+        this->m_ptr = other.m_ptr;
+        other.m_ptr = nullptr;
+    }
+
+    ~MyString()
+    {
+        if(m_ptr !=nullptr)
+        {
+            delete[] m_ptr;
+        }
+        m_ptr = nullptr;
+    }
+
 
     const char * c_str() const
     {
@@ -66,10 +81,21 @@ public:
 
     char operator[](int index)
     {
-
+        return m_ptr[index];
     }
     MyString &operator=(const MyString &other)
     {
+        if(other.m_ptr != nullptr)
+        {
+            int len = strlen(other.m_ptr)+1;
+            m_ptr = new char[len];
+            memcpy(m_ptr,other.m_ptr,len);
+        }
+        else
+        {
+            m_ptr = nullptr;
+        }
+        return *this;
 
     }
     MyString &operator=(MyString &other)
@@ -95,6 +121,8 @@ ostream& operator<<(ostream &out,const MyString &s)
 
 istream& operator>>(istream &in,MyString &s)
 {
-    in << "str = " << s.m_ptr;
+    delete [] s.m_ptr;
+    s.m_ptr = new char[100];
+    in >> s.m_ptr;
     return in;
 }
